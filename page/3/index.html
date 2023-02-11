@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>王德品的学习部落格</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="王德品的学习部落格">
+<meta property="og:url" content="http://example.com/page/3/index.html">
+<meta property="og:site_name" content="王德品的学习部落格">
+<meta property="og:locale">
+<meta property="article:author" content="Wang Depin">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="王德品的学习部落格" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">王德品的学习部落格</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-ggplot画barplot图-自定义x轴的顺序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/" class="article-date">
+  <time datetime="2019-11-09T12:06:38.000Z" itemprop="datePublished">2019-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/">ggplot画barplot图-自定义x轴的顺序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我画了一个barplot，但是bar的长度不是按照从小到大或者从大到小排序的。我现在想要bar排序展示。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">data<span class="punctuation">(</span>tips<span class="punctuation">,</span> package <span class="operator">=</span> <span class="string">&quot;reshape2&quot;</span><span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>tidyverse<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>scales<span class="punctuation">)</span>  <span class="comment"># for percentage scales</span></span><br><span class="line"></span><br><span class="line">tips <span class="operator">%&gt;%</span> </span><br><span class="line">  count<span class="punctuation">(</span>day<span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  mutate<span class="punctuation">(</span>perc <span class="operator">=</span> n <span class="operator">/</span> nrow<span class="punctuation">(</span>tips<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">-&gt;</span> tips2</span><br><span class="line"></span><br><span class="line">ggplot<span class="punctuation">(</span>tips2<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> day<span class="punctuation">,</span> y <span class="operator">=</span> perc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_bar<span class="punctuation">(</span>stat <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">bar按照顺序排序，方法<span class="number">1</span>：</span><br><span class="line">tips2<span class="operator">$</span>day <span class="operator">&lt;-</span> factor<span class="punctuation">(</span>tips2<span class="operator">$</span>day<span class="punctuation">,</span>levels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Fri&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sat&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sun&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Thur&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">方法<span class="number">2</span>：</span><br><span class="line">ggplot<span class="punctuation">(</span>tips2<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> reorder<span class="punctuation">(</span>day<span class="punctuation">,</span> <span class="operator">-</span>perc<span class="punctuation">)</span><span class="punctuation">,</span> y <span class="operator">=</span> perc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_bar<span class="punctuation">(</span>stat <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料如下：</p>
+<p> <a target="_blank" rel="noopener" href="https://sebastiansauer.github.io/ordering-bars/">https://sebastiansauer.github.io/ordering-bars/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/" data-id="cle00atyw000gg60z8erj5pte" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ggplot-分面画图时，改变facet-labels" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/" class="article-date">
+  <time datetime="2019-11-08T08:54:12.000Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/">ggplot 分面画图时，改变facet labels</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我使用facet_wrap进行分面画图，我想要自定义每个图的位置。如下图</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data图片1.png" style="zoom:50%;" />
+
+<p>比如，我想把Belgica_antarcitica 换到 Drosophila_simulans。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Using the Iris data</span></span><br><span class="line"><span class="operator">&gt;</span> i <span class="operator">&lt;-</span> iris</span><br><span class="line"><span class="operator">&gt;</span> levels<span class="punctuation">(</span>i<span class="operator">$</span>Species<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="string">&quot;setosa&quot;</span>     <span class="string">&quot;versicolor&quot;</span> <span class="string">&quot;virginica&quot;</span> </span><br><span class="line"><span class="operator">&gt;</span> levels<span class="punctuation">(</span>i<span class="operator">$</span>Species<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;S&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Ve&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Vi&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> ggplot<span class="punctuation">(</span>i<span class="punctuation">,</span> aes<span class="punctuation">(</span>Petal.Length<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> stat_bin<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span> facet_grid<span class="punctuation">(</span>Species <span class="operator">~</span> .<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>设置levels，改变位置。</p>
+<p>参考资料：</p>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3472980/how-to-change-facet-labels">https://stackoverflow.com/questions/3472980/how-to-change-facet-labels</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15116081/controlling-order-of-facet-grid-facet-wrap-in-ggplot2">https://stackoverflow.com/questions/15116081/controlling-order-of-facet-grid-facet-wrap-in-ggplot2</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/" data-id="cle00atyr0001g60z8h5b3xlw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ggplot-画图修改x，y轴label-和text" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/" class="article-date">
+  <time datetime="2019-11-08T08:07:05.000Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R-%E8%AF%AD%E8%A8%80/">R 语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/">ggplot 画图修改x，y轴label 和text</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我想要改变x，y轴刻度大小，方向。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>mtcars<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> factor<span class="punctuation">(</span>cyl<span class="punctuation">)</span><span class="punctuation">,</span> y <span class="operator">=</span> mpg<span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  geom_point<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span>axis.text.x <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">20</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">        axis.text.y <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>  </span><br><span class="line">        axis.title.x <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">        axis.title.y <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/" data-id="cle00atyv000ag60z5eja753j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ggplot画图时，如何自定义x轴刻度的名称" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/ggplot%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E5%88%BB%E5%BA%A6%E7%9A%84%E5%90%8D%E7%A7%B0/" class="article-date">
+  <time datetime="2019-11-08T05:15:13.000Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/ggplot%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E5%88%BB%E5%BA%A6%E7%9A%84%E5%90%8D%E7%A7%B0/">ggplot画图时，如何自定义x轴刻度的名称</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我想要改变下图中x轴刻度的名称，比如“1000”变成“1k”。图如下：</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data微信截图_20191108131557.png" style="zoom: 50%;" />
+
+<p>上图代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>plyr<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>cowplot<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br><span class="line">setwd<span class="punctuation">(</span><span class="string">&quot;E:\\Project\\06.gene_family_and_genome_size\\06.density_plot_of_average_intron_length&quot;</span><span class="punctuation">)</span></span><br><span class="line">my_data <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;all_species_average_intron_length.txt&quot;</span><span class="punctuation">,</span>header <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">,</span><span class="built_in">quote</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="built_in">names</span><span class="punctuation">(</span>my_data<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene&quot;</span><span class="punctuation">,</span><span class="string">&quot;intron_length&quot;</span><span class="punctuation">,</span><span class="string">&quot;species&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">p1<span class="operator">&lt;-</span>ggplot<span class="punctuation">(</span>my_data<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>intron_length<span class="punctuation">,</span> color<span class="operator">=</span>species<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_density<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">0.4</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  scale_x_log10<span class="punctuation">(</span>breaks <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">10</span><span class="punctuation">,</span> <span class="number">100</span><span class="punctuation">,</span><span class="number">500</span><span class="punctuation">,</span><span class="number">1000</span><span class="punctuation">,</span><span class="number">10000</span><span class="punctuation">,</span><span class="number">25000</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span>x <span class="operator">=</span> <span class="string">&#x27;Intron length (bp)&#x27;</span><span class="punctuation">,</span>y <span class="operator">=</span> <span class="string">&quot;Density&quot;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme_classic<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span></span><br><span class="line">    legend.position <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">.99</span><span class="punctuation">,</span> <span class="number">.99</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.justification <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;right&quot;</span><span class="punctuation">,</span> <span class="string">&quot;top&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.key.size <span class="operator">=</span> unit<span class="punctuation">(</span><span class="number">0.5</span><span class="punctuation">,</span> <span class="string">&quot;line&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.key.width <span class="operator">=</span> unit<span class="punctuation">(</span><span class="number">0.05</span><span class="punctuation">,</span><span class="string">&quot;line&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.title <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span>legend.text <span class="operator">=</span> element_text<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">10</span><span class="punctuation">,</span> face<span class="operator">=</span><span class="string">&quot;italic&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  scale_color_manual<span class="punctuation">(</span>values<span class="operator">=</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Aedes_aegypti&quot;</span><span class="operator">=</span><span class="string">&quot;darkred&quot;</span><span class="punctuation">,</span><span class="string">&quot;Aedes_albopictus&quot;</span><span class="operator">=</span><span class="string">&quot;red4&quot;</span><span class="punctuation">,</span><span class="string">&quot;Anopheles_albimanus&quot;</span><span class="operator">=</span><span class="string">&quot;blue3&quot;</span><span class="punctuation">,</span><span class="string">&quot;Anopheles_arabiensis&quot;</span><span class="operator">=</span><span class="string">&quot;green4&quot;</span><span class="punctuation">,</span></span><br><span class="line">                              <span class="string">&quot;Anopheles_gambiae&quot;</span><span class="operator">=</span><span class="string">&quot;darkgreen&quot;</span><span class="punctuation">,</span><span class="string">&quot;Anopheles_merus&quot;</span><span class="operator">=</span><span class="string">&quot;black&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Belgica_antarctica&quot;</span><span class="operator">=</span><span class="string">&quot;red&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Culex_quinquefasciatus&quot;</span><span class="operator">=</span><span class="string">&quot;blue1&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Drosophila_melanogaster&quot;</span><span class="operator">=</span><span class="string">&quot;green3&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Drosophila_pseudoobscura&quot;</span><span class="operator">=</span><span class="string">&quot;deeppink&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Drosophila_simulans&quot;</span><span class="operator">=</span><span class="string">&quot;darkslategray&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Glossina_pallidipes&quot;</span><span class="operator">=</span><span class="string">&quot;red2&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Glossina_palpalis&quot;</span><span class="operator">=</span><span class="string">&quot;blue2&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Musca_domestica&quot;</span><span class="operator">=</span><span class="string">&quot;green3&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;Stomoxys_calcitrans&quot;</span><span class="operator">=</span><span class="string">&quot;deeppink1&quot;</span></span><br><span class="line">  <span class="punctuation">)</span><span class="punctuation">,</span>labels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&#x27;Aedes aegypti&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Aedes albopictus&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Anopheles albimanus&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Anopheles arabiensis&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Anopheles gambiae&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Anopheles merus&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Belgica antarctica&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Culex quinquefasciatus&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Drosophila melanogaster&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Drosophila pseudoobscura&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Drosophila simulans&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Glossina pallidipes&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Glossina palpalis&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Musca domestica&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Stomoxys calcitrans&#x27;</span><span class="punctuation">)</span><span class="punctuation">)</span> </span><br><span class="line">save_plot<span class="punctuation">(</span><span class="string">&quot;density.13.pdf&quot;</span><span class="punctuation">,</span> p1）</span><br></pre></td></tr></table></figure>
+
+<p>添加 label =c(“1”,”10”,”100”,”500”,”1k”,”10k”,”25k”)到scale_x_log10(breaks = c(1, 10, 100,500,1000,10000,25000)) 得到结果如下图：</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data微信截图_20191108131537.png" style="zoom: 50%;" />
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/08/ggplot%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E5%88%BB%E5%BA%A6%E7%9A%84%E5%90%8D%E7%A7%B0/" data-id="cle00atyy000ng60z9vp1hm5a" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%BB%E5%9B%BE/" rel="tag">画图</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-画密度图时，如何自定义x轴的刻度" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/06/%E7%94%BB%E5%AF%86%E5%BA%A6%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E5%88%BB%E5%BA%A6/" class="article-date">
+  <time datetime="2019-11-06T14:31:41.000Z" itemprop="datePublished">2019-11-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R/">R</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/06/%E7%94%BB%E5%AF%86%E5%BA%A6%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E5%88%BB%E5%BA%A6/">画密度图时，如何自定义x轴的刻度</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我的图如下：</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data微信截图_20191106223433.png" style="zoom:80%;" />
+
+<p>我想要得到更好看的下图：</p>
+<p><img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191106223317.png"></p>
+<p>我画的图有两个地方需要修改：1.  legend text，我想要把下划线去掉，以及字体用斜体；2. x轴的刻度，我想要用k代表1000,需要第一幅图x轴的25000，变成25k。目前我只能画出第一幅图的样子。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>plyr<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>cowplot<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>ggplot2<span class="punctuation">)</span></span><br><span class="line">setwd<span class="punctuation">(</span><span class="string">&quot;E:\\Project\\06.gene_family_and_genome_size\\06.density_plot_of_average_intron_length&quot;</span><span class="punctuation">)</span></span><br><span class="line">my_data <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;all_species_average_intron_length.txt&quot;</span><span class="punctuation">,</span>header <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">,</span><span class="built_in">quote</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="built_in">names</span><span class="punctuation">(</span>my_data<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene&quot;</span><span class="punctuation">,</span><span class="string">&quot;intron_length&quot;</span><span class="punctuation">,</span><span class="string">&quot;species&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">mu <span class="operator">&lt;-</span> ddply<span class="punctuation">(</span>my_data<span class="punctuation">,</span> <span class="string">&quot;species&quot;</span><span class="punctuation">,</span> summarise<span class="punctuation">,</span> grp.mean<span class="operator">=</span>mean<span class="punctuation">(</span>intron_length<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p1<span class="operator">&lt;-</span>ggplot<span class="punctuation">(</span>my_data<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>intron_length<span class="punctuation">,</span> color<span class="operator">=</span>species<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_density<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">0.4</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  scale_x_log10<span class="punctuation">(</span>breaks <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">10</span><span class="punctuation">,</span> <span class="number">100</span><span class="punctuation">,</span><span class="number">500</span><span class="punctuation">,</span><span class="number">1000</span><span class="punctuation">,</span><span class="number">10000</span><span class="punctuation">,</span><span class="number">25000</span><span class="punctuation">,</span><span class="number">50000</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span>x <span class="operator">=</span> <span class="string">&#x27;Average intron length (bp)&#x27;</span><span class="punctuation">,</span>y <span class="operator">=</span> <span class="string">&quot;Density&quot;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme_classic<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span></span><br><span class="line">    legend.position <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">.99</span><span class="punctuation">,</span> <span class="number">.99</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.justification <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;right&quot;</span><span class="punctuation">,</span> <span class="string">&quot;top&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.key.size <span class="operator">=</span> unit<span class="punctuation">(</span><span class="number">0.5</span><span class="punctuation">,</span> <span class="string">&quot;line&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.key.width <span class="operator">=</span> unit<span class="punctuation">(</span><span class="number">0.05</span><span class="punctuation">,</span><span class="string">&quot;line&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.title <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  scale_color_manual<span class="punctuation">(</span>values<span class="operator">=</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Aedes_aegypti&quot;</span><span class="operator">=</span><span class="string">&quot;darkred&quot;</span><span class="punctuation">,</span><span class="string">&quot;Aedes_albopictus&quot;</span><span class="operator">=</span><span class="string">&quot;red4&quot;</span><span class="punctuation">,</span></span><br><span class="line">                              <span class="string">&quot;Anopheles_albimanus&quot;</span><span class="operator">=</span><span class="string">&quot;blue&quot;</span><span class="punctuation">,</span><span class="string">&quot;Anopheles_arabiensis&quot;</span><span class="operator">=</span><span class="string">&quot;green4&quot;</span><span class="punctuation">,</span></span><br><span class="line">                              <span class="string">&quot;darkgreen&quot;</span><span class="punctuation">,</span><span class="string">&quot;darkred&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;red4&quot;</span><span class="punctuation">,</span><span class="string">&quot;blue&quot;</span><span class="punctuation">,</span><span class="string">&quot;green4&quot;</span><span class="punctuation">,</span><span class="string">&quot;darkgreen&quot;</span><span class="punctuation">,</span><span class="string">&quot;darkred&quot;</span><span class="punctuation">,</span></span><br><span class="line">                             <span class="string">&quot;red4&quot;</span><span class="punctuation">,</span><span class="string">&quot;blue&quot;</span><span class="punctuation">,</span><span class="string">&quot;green4&quot;</span><span class="punctuation">,</span><span class="string">&quot;darkgreen&quot;</span></span><br><span class="line">  <span class="punctuation">)</span><span class="punctuation">,</span>labels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&#x27;Aedes aegypti&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Aedes albopictus&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Anopheles albimanus&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Anopheles arabiensis&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Anopheles gambiae&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Anopheles merus&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Belgica antarctica&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Culex quinquefasciatus&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Drosophila melanogaster&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Drosophila pseudoobscura&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Drosophila simulans&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Glossina pallidipes&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Glossina palpalis&#x27;</span><span class="punctuation">,</span></span><br><span class="line">               <span class="string">&#x27;Musca domestica&#x27;</span><span class="punctuation">,</span><span class="string">&#x27;Stomoxys calcitrans&#x27;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">save_plot<span class="punctuation">(</span><span class="string">&quot;density.10.pdf&quot;</span><span class="punctuation">,</span> p1<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料： <a target="_blank" rel="noopener" href="http://freerangestats.info/blog/2015/08/15/importing-nzis-surf.html">http://freerangestats.info/blog/2015/08/15/importing-nzis-surf.html</a> </p>
+<p> <a target="_blank" rel="noopener" href="http://freerangestats.info/blog/2015/09/05/creating-a-scale-transformation">http://freerangestats.info/blog/2015/09/05/creating-a-scale-transformation</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/06/%E7%94%BB%E5%AF%86%E5%BA%A6%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E5%88%BB%E5%BA%A6/" data-id="cle00atz9003mg60zcq377hxq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R%E7%94%BB%E5%9B%BE/" rel="tag">R画图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-统计gtf文件方法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/03/%E7%BB%9F%E8%AE%A1gtf%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2019-11-03T13:51:55.000Z" itemprop="datePublished">2019-11-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/03/%E7%BB%9F%E8%AE%A1gtf%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/">统计gtf文件方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>需要根据gtf文件统计每个基因的isoform数量，intron，exon长度信息。现有的perl脚本：</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/perl -w</span></span><br><span class="line"><span class="comment">#Author: Pengcheng Yang</span></span><br><span class="line"><span class="comment">#Email: yangpc@mail.biols.ac.cn</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> strict;</span><br><span class="line"><span class="keyword">use</span> Getopt::Long;</span><br><span class="line"><span class="keyword">use</span> File::Basename <span class="string">qw(basename dirname)</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $usage= <span class="string">&quot;\n$0</span></span><br><span class="line"><span class="string">--gtf     \t&lt;str&gt;\tgtf file</span></span><br><span class="line"><span class="string">--outDir  \t&lt;str&gt;\toutput directory</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span>($gtf,$outDir);</span><br><span class="line"></span><br><span class="line">GetOptions(</span><br><span class="line">                <span class="string">&quot;gtf:s&quot;</span>=&gt;\$gtf,</span><br><span class="line">                <span class="string">&quot;outDir:s&quot;</span>=&gt;\$outDir</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">die</span> $usage <span class="keyword">if</span> !<span class="keyword">defined</span> $gtf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $gtf_base = basename $gtf;</span><br><span class="line"></span><br><span class="line"><span class="string">`mkdir -p $outDir`</span> <span class="keyword">if</span> ! -e <span class="string">&quot;$outDir&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> I,$gtf;</span><br><span class="line"><span class="keyword">my</span>(%exon,%gene,%isoform,@info,%gid2tid,%trlen);</span><br><span class="line"><span class="keyword">my</span>($gid,$trid,$exid);</span><br><span class="line"><span class="keyword">while</span>(&lt;I&gt;)&#123;</span><br><span class="line">        <span class="keyword">chomp</span>;</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">if</span> /^<span class="comment">#/;</span></span><br><span class="line">        @info=<span class="keyword">split</span> <span class="regexp">/\t/</span>;</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">if</span> $info[<span class="number">8</span>] !~ <span class="regexp">/transcript_id/</span>;</span><br><span class="line">        <span class="keyword">next</span> <span class="keyword">if</span> $info[<span class="number">2</span>] eq <span class="string">&quot;transcript&quot;</span>;</span><br><span class="line">        ($gid)=$_=~<span class="regexp">/gene_id \&quot;(\S+?)\&quot;;/</span>;</span><br><span class="line">        ($trid)=$_=~<span class="regexp">/transcript_id \&quot;(\S+?)\&quot;;/</span>;</span><br><span class="line">        <span class="keyword">if</span>($info[<span class="number">2</span>] eq <span class="string">&quot;exon&quot;</span>)&#123;</span><br><span class="line">                $trlen&#123;$gid&#125;&#123;$trid&#125; += $info[<span class="number">4</span>]-$info[<span class="number">3</span>]+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        $gid2tid&#123;$gid&#125;&#123;$trid&#125;++;</span><br><span class="line">        $isoform&#123;$gid&#125;&#123;$trid&#125;++;</span><br><span class="line">        <span class="keyword">if</span>( <span class="regexp">/exon_number \&quot;(\d+)\&quot;/</span>)&#123;</span><br><span class="line">                $exid=$1;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                $exid=$isoform&#123;$gid&#125;&#123;$trid&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        $exon&#123;$trid&#125;<span class="string">&#123;Num&#125;</span>&#123;$exid&#125;++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">close</span> I;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.G2T&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $gid (<span class="keyword">sort</span> <span class="keyword">keys</span> %gid2tid)&#123;</span><br><span class="line">        <span class="keyword">map</span>&#123;<span class="keyword">print</span> O <span class="string">&quot;$gid\t$_\n&quot;</span>;&#125;(<span class="keyword">sort</span> <span class="keyword">keys</span> %&#123;$gid2tid&#123;$gid&#125;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span>(%numSum,%numClss,$n1,$tot);</span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.isoform.num&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $gid (<span class="keyword">sort</span> <span class="keyword">keys</span> %isoform)&#123;</span><br><span class="line">        $n1=<span class="keyword">scalar</span> <span class="keyword">keys</span> %&#123;$isoform&#123;$gid&#125;&#125;;</span><br><span class="line">        <span class="keyword">print</span> O <span class="string">&quot;$gid\t$n1\n&quot;</span>;</span><br><span class="line">        $numSum&#123;$n1&#125;++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.isoform.numSum&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $n1 (<span class="keyword">sort</span> &#123;$a &lt;=&gt; $b&#125; <span class="keyword">keys</span> %numSum)&#123;</span><br><span class="line">        <span class="keyword">print</span> O <span class="string">&quot;$n1\t$numSum&#123;$n1&#125;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>($n1==<span class="number">1</span>)&#123;</span><br><span class="line">                $numClss<span class="string">&#123;1&#125;</span>=$numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1&gt;<span class="number">1</span> &amp;&amp; $n1 &lt;= <span class="number">10</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;2_10&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">100</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;&gt;100&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">10</span> &amp;&amp; $n1 &lt;=<span class="number">20</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;11_20&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">50</span> &amp;&amp; $n1 &lt;= <span class="number">100</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;51_100&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">20</span> &amp;&amp; $n1 &lt;= <span class="number">50</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;21_50&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.isoform.numSumClss&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $n1 (<span class="keyword">sort</span> <span class="keyword">keys</span> %numClss)&#123;</span><br><span class="line">        <span class="keyword">print</span> O <span class="string">&quot;$n1\t$numClss&#123;$n1&#125;\n&quot;</span>;</span><br><span class="line">        $tot += $numClss&#123;$n1&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">print</span> O <span class="string">&quot;total\t$tot\n&quot;</span>;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br><span class="line">%numSum=();%numClss=();$tot=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.ExonNum&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $gid (<span class="keyword">sort</span> <span class="keyword">keys</span> %exon)&#123;</span><br><span class="line">        <span class="keyword">my</span> @maxN = <span class="keyword">sort</span> &#123;$b &lt;=&gt; $a&#125; <span class="keyword">keys</span> %&#123;$exon&#123;$gid&#125;<span class="string">&#123;Num&#125;</span>&#125;;</span><br><span class="line">        <span class="keyword">print</span> O <span class="string">&quot;$gid\t$maxN[0]\n&quot;</span>;</span><br><span class="line">        $numSum&#123;$maxN[<span class="number">0</span>]&#125;++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.ExonNumSum&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $n1 (<span class="keyword">sort</span> &#123;$a &lt;=&gt; $b&#125; <span class="keyword">keys</span> %numSum)&#123;</span><br><span class="line">        <span class="keyword">print</span> O <span class="string">&quot;$n1\t$numSum&#123;$n1&#125;\n&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span>($n1==<span class="number">1</span>)&#123;</span><br><span class="line">                $numClss<span class="string">&#123;1&#125;</span>=$numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1&gt;<span class="number">1</span> &amp;&amp; $n1 &lt;= <span class="number">10</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;2_10&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">100</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;&gt;100&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">10</span> &amp;&amp; $n1 &lt;=<span class="number">20</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;11_20&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">50</span> &amp;&amp; $n1 &lt;= <span class="number">100</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;51_100&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;<span class="keyword">elsif</span>($n1 &gt; <span class="number">20</span> &amp;&amp; $n1 &lt;= <span class="number">50</span>)&#123;</span><br><span class="line">                $numClss&#123;<span class="string">&quot;21_50&quot;</span>&#125; += $numSum&#123;$n1&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> O,<span class="string">&quot;&gt;&quot;</span>,<span class="string">&quot;$outDir/$gtf_base.ExonSumClss&quot;</span>;</span><br><span class="line"><span class="keyword">foreach</span> $n1 (<span class="keyword">sort</span> <span class="keyword">keys</span> %numClss)&#123;</span><br><span class="line">        <span class="keyword">print</span> O <span class="string">&quot;$n1\t$numClss&#123;$n1&#125;\n&quot;</span>;</span><br><span class="line">        $tot += $numClss&#123;$n1&#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">print</span> O <span class="string">&quot;total\t$tot\n&quot;</span>;</span><br><span class="line"><span class="keyword">close</span> O;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参考别人的资料： <a target="_blank" rel="noopener" href="https://www.biostars.org/p/161807/">https://www.biostars.org/p/161807/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/03/%E7%BB%9F%E8%AE%A1gtf%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" data-id="cle00atza003tg60z0l4ude9y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">基因组数据处理</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ggplot画图-如何改变legend的位置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/03/ggplot%E7%94%BB%E5%9B%BE-%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98legend%E7%9A%84%E4%BD%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2019-11-03T12:26:20.000Z" itemprop="datePublished">2019-11-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/03/ggplot%E7%94%BB%E5%9B%BE-%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98legend%E7%9A%84%E4%BD%8D%E7%BD%AE/">ggplot画图 如何改变legend的位置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data微信截图_20191103202213.png" style="zoom:80%;" />
+
+<p>如图，我想把ggplot默认生成的legend，放到图里边的右上角。上图生成代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>plyr<span class="punctuation">)</span></span><br><span class="line">setwd<span class="punctuation">(</span><span class="string">&quot;E:\\Project&quot;</span><span class="punctuation">)</span></span><br><span class="line">my_data <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;all_species_average_intron_length.txt&quot;</span><span class="punctuation">,</span>header <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">,</span><span class="built_in">quote</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="built_in">names</span><span class="punctuation">(</span>my_data<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene&quot;</span><span class="punctuation">,</span><span class="string">&quot;intron_length&quot;</span><span class="punctuation">,</span><span class="string">&quot;species&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">p1 <span class="operator">&lt;-</span> ggplot<span class="punctuation">(</span>my_data<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>intron_length<span class="punctuation">,</span> color<span class="operator">=</span>species<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_density<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">0.1</span><span class="punctuation">)</span><span class="operator">+</span>scale_x_continuous<span class="punctuation">(</span>trans<span class="operator">=</span><span class="string">&#x27;log10&#x27;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme_classic<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span>x <span class="operator">=</span> <span class="string">&#x27;Average intron length (bp)&#x27;</span><span class="punctuation">,</span>y <span class="operator">=</span> <span class="string">&quot;Density&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">ggsave<span class="punctuation">(</span><span class="string">&quot;density curve.pdf&quot;</span><span class="punctuation">,</span>plot<span class="operator">=</span>p1<span class="punctuation">,</span>width <span class="operator">=</span> <span class="number">4</span><span class="punctuation">,</span>height <span class="operator">=</span> <span class="number">4</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>我想得到的图：</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data微信截图_20191103213416.png" style="zoom:80%;" />
+
+<p>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">library<span class="punctuation">(</span>plyr<span class="punctuation">)</span></span><br><span class="line">setwd<span class="punctuation">(</span><span class="string">&quot;E:\\Project&quot;</span><span class="punctuation">)</span></span><br><span class="line">my_data <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span><span class="string">&quot;all_species_average_intron_length.txt&quot;</span><span class="punctuation">,</span></span><br><span class="line">                      header <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">,</span><span class="built_in">quote</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="built_in">names</span><span class="punctuation">(</span>my_data<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene&quot;</span><span class="punctuation">,</span><span class="string">&quot;intron_length&quot;</span><span class="punctuation">,</span><span class="string">&quot;species&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">mu <span class="operator">&lt;-</span> ddply<span class="punctuation">(</span>my_data<span class="punctuation">,</span> <span class="string">&quot;species&quot;</span><span class="punctuation">,</span> summarise<span class="punctuation">,</span> grp.mean<span class="operator">=</span>mean<span class="punctuation">(</span>intron_length<span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p1 <span class="operator">&lt;-</span> ggplot<span class="punctuation">(</span>my_data<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>intron_length<span class="punctuation">,</span> color<span class="operator">=</span>species<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span></span><br><span class="line">  geom_density<span class="punctuation">(</span>size<span class="operator">=</span><span class="number">0.1</span><span class="punctuation">)</span><span class="operator">+</span>scale_x_continuous<span class="punctuation">(</span>trans<span class="operator">=</span><span class="string">&#x27;log10&#x27;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme_classic<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  labs<span class="punctuation">(</span>x <span class="operator">=</span> <span class="string">&#x27;Average intron length (bp)&#x27;</span><span class="punctuation">,</span>y <span class="operator">=</span> <span class="string">&quot;Density&quot;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span></span><br><span class="line">    legend.position <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">.95</span><span class="punctuation">,</span> <span class="number">.95</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.justification <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;right&quot;</span><span class="punctuation">,</span> <span class="string">&quot;top&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.key.size <span class="operator">=</span> unit<span class="punctuation">(</span><span class="number">1.0</span><span class="punctuation">,</span> <span class="string">&quot;line&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.key.width <span class="operator">=</span> unit<span class="punctuation">(</span><span class="number">0.1</span><span class="punctuation">,</span><span class="string">&quot;line&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.title <span class="operator">=</span> element_blank<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">ggsave<span class="punctuation">(</span><span class="string">&quot;density curve of average intron in all species.pdf&quot;</span><span class="punctuation">,</span>plot<span class="operator">=</span>p1<span class="punctuation">,</span>width <span class="operator">=</span> <span class="number">8</span><span class="punctuation">,</span>height <span class="operator">=</span> <span class="number">6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>主要添加了这一段：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">inside the plot area</span><br><span class="line">basic <span class="operator">+</span> theme<span class="punctuation">(</span></span><br><span class="line">    legend.position <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="number">.95</span><span class="punctuation">,</span> <span class="number">.95</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.justification <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;right&quot;</span><span class="punctuation">,</span> <span class="string">&quot;top&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">    legend.box.just <span class="operator">=</span> <span class="string">&quot;right&quot;</span><span class="punctuation">,</span></span><br><span class="line">    legend.margin <span class="operator">=</span> margin<span class="punctuation">(</span><span class="number">6</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">,</span> <span class="number">6</span><span class="punctuation">)</span></span><br><span class="line">    <span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料：</p>
+<p> <a target="_blank" rel="noopener" href="https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2.html">https://www.r-graph-gallery.com/239-custom-layout-legend-ggplot2.html</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/03/ggplot%E7%94%BB%E5%9B%BE-%E5%A6%82%E4%BD%95%E6%94%B9%E5%8F%98legend%E7%9A%84%E4%BD%8D%E7%BD%AE/" data-id="cle00atyx000ig60z17zwg5jc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-使用Rstudio批量处理一个目录下的文件，画相同的图" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/03/%E4%BD%BF%E7%94%A8Rstudio%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E4%B8%80%E4%B8%AA%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%8C%E7%94%BB%E7%9B%B8%E5%90%8C%E7%9A%84%E5%9B%BE/" class="article-date">
+  <time datetime="2019-11-03T08:48:13.000Z" itemprop="datePublished">2019-11-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/03/%E4%BD%BF%E7%94%A8Rstudio%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E4%B8%80%E4%B8%AA%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%8C%E7%94%BB%E7%9B%B8%E5%90%8C%E7%9A%84%E5%9B%BE/">使用Rstudio批量处理一个目录下的文件，画相同的图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我有15个.txt  文件，在同一个目录下。每个文件有三列，列名都相同。取其中第一列和第二列，画散点图。</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data微信截图_20191103165155.png" style="zoom: 80%;" />
+
+<p>15个文件正如截图展示。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">setwd<span class="punctuation">(</span><span class="string">&quot;E:\\Project\\06.gene_family_and_genome_size\\05.scatter_plot_of_isoform_num_and_intron_size_within_species&quot;</span><span class="punctuation">)</span></span><br><span class="line">a <span class="operator">=</span> list.files<span class="punctuation">(</span><span class="string">&quot;merge.file&quot;</span><span class="punctuation">)</span></span><br><span class="line">dir <span class="operator">=</span> paste<span class="punctuation">(</span><span class="string">&quot;.\\merge.file\\&quot;</span><span class="punctuation">,</span>a<span class="punctuation">,</span>sep<span class="operator">=</span><span class="string">&quot;&quot;</span><span class="punctuation">)</span>   </span><br><span class="line">n <span class="operator">=</span> <span class="built_in">length</span><span class="punctuation">(</span>dir<span class="punctuation">)</span></span><br><span class="line"><span class="comment">## deal with all files in the dir </span></span><br><span class="line"><span class="keyword">for</span> <span class="punctuation">(</span>i <span class="keyword">in</span> <span class="number">1</span><span class="operator">:</span>n<span class="punctuation">)</span><span class="punctuation">&#123;</span></span><br><span class="line">  tmp <span class="operator">&lt;-</span> read.table<span class="punctuation">(</span>dir<span class="punctuation">[</span>i<span class="punctuation">]</span><span class="punctuation">,</span> header <span class="operator">=</span> <span class="built_in">F</span><span class="punctuation">,</span><span class="built_in">quote</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span><span class="punctuation">)</span></span><br><span class="line">  <span class="built_in">names</span><span class="punctuation">(</span>tmp<span class="punctuation">)</span><span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;gene&quot;</span><span class="punctuation">,</span><span class="string">&quot;isoform_num_after_filter&quot;</span><span class="punctuation">,</span><span class="string">&quot;average_intron_length&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">  print<span class="punctuation">(</span>ggplot<span class="punctuation">(</span>tmp<span class="punctuation">,</span> aes<span class="punctuation">(</span>x<span class="operator">=</span>average_intron_length<span class="punctuation">,</span> y<span class="operator">=</span>isoform_num_after_filter<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> </span><br><span class="line">    scale_x_continuous<span class="punctuation">(</span>trans<span class="operator">=</span><span class="string">&#x27;log2&#x27;</span><span class="punctuation">)</span> <span class="operator">+</span> scale_y_continuous<span class="punctuation">(</span>trans<span class="operator">=</span><span class="string">&#x27;log2&#x27;</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">    geom_point<span class="punctuation">(</span>position <span class="operator">=</span> position_jitter<span class="punctuation">(</span>width <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">,</span> height <span class="operator">=</span> <span class="number">0.5</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span>geom_smooth<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">    labs<span class="punctuation">(</span>y     <span class="operator">=</span> <span class="string">&#x27;Isoform number &#x27;</span><span class="punctuation">,</span></span><br><span class="line">         x     <span class="operator">=</span> <span class="string">&#x27;Average intron length&#x27;</span><span class="punctuation">)</span><span class="operator">+</span>ggsave<span class="punctuation">(</span>file<span class="operator">=</span>paste0<span class="punctuation">(</span><span class="string">&quot;ggscater&quot;</span><span class="punctuation">,</span>i<span class="punctuation">,</span><span class="string">&quot;.pdf&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>width <span class="operator">=</span> <span class="number">5</span><span class="punctuation">,</span>height <span class="operator">=</span> <span class="number">4</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后得到的pdf如图：</p>
+<p><img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_20191103165938.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/03/%E4%BD%BF%E7%94%A8Rstudio%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86%E4%B8%80%E4%B8%AA%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%8C%E7%94%BB%E7%9B%B8%E5%90%8C%E7%9A%84%E5%9B%BE/" data-id="cle00atz1001dg60z346shgyx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R%E7%94%BB%E5%9B%BE/" rel="tag">R画图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-实现手机和电脑共享科学上网注意事项" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/23/%E5%AE%9E%E7%8E%B0%E6%89%8B%E6%9C%BA%E5%92%8C%E7%94%B5%E8%84%91%E5%85%B1%E4%BA%AB%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="article-date">
+  <time datetime="2019-10-23T13:32:03.000Z" itemprop="datePublished">2019-10-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/23/%E5%AE%9E%E7%8E%B0%E6%89%8B%E6%9C%BA%E5%92%8C%E7%94%B5%E8%84%91%E5%85%B1%E4%BA%AB%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/">实现手机和电脑共享科学上网注意事项</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我这里用的是win系统笔记本，通过ss客户端科学上网，但此时你直接开wifi共享，手机即使连上也是不可以越过那道墙的。需要简单设置一些东西</p>
+<p>1、ss客户端勾选“允许来自局域网的连接”</p>
+<p>2、手机连接此电脑共享的wifi</p>
+<p>3、连接好之后长按此wifi，勾选“显示高级选项”</p>
+<p>4、代理服务器选择“手动”</p>
+<p>5、代理主机名填写你自己电脑的ip地址，代理端口一般是1080</p>
+<p>6、连接上之后，电脑上务必关掉防火墙！我就因为没关防火墙浪费半天时间！重要的事情强调三遍一定要把防火墙关掉，关掉防火墙，关掉！！</p>
+<p>7、如果你的电脑可以爬梯，那么手机应该也就没问题了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/10/23/%E5%AE%9E%E7%8E%B0%E6%89%8B%E6%9C%BA%E5%92%8C%E7%94%B5%E8%84%91%E5%85%B1%E4%BA%AB%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" data-id="cle00atz8003dg60zewasdpfy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" rel="tag">科学上网</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-学习总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/12/python-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2019-10-12T12:18:56.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B/">编程能力</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/python-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">python 学习总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>来自Udacity 的教程-28天学习Python-</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/10/12/python-%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/" data-id="cle00atyz000vg60z303y9uzx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/R/">R</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/R-%E8%AF%AD%E8%A8%80/">R 语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%BA%E6%96%87/">人文</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D/">总结与反思</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E8%83%BD/">技能</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%83%BD%E5%8A%9B/">编程能力</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%8B%B1%E8%AF%AD/">英语</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E8%83%BD/">计算机技能</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hexo%E6%8A%80%E5%B7%A7/" rel="tag">Hexo技巧</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/R%E7%94%BB%E5%9B%BE/" rel="tag">R画图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" rel="tag">个人成长</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%A8%E8%AE%B0/" rel="tag">周记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">基因组数据处理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%AF%94%E8%BE%83/" rel="tag">多因素比较</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%BD%E6%96%87%E7%AB%A0/" rel="tag">好文章</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B0%8F%E7%B1%B3%E5%88%B7%E6%9C%BA/" rel="tag">小米刷机</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%83%B3%E6%B3%95/" rel="tag">想法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%B7%A5/" rel="tag">数据加工</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%A5%E5%B8%B8%E9%9A%8F%E6%83%B3/" rel="tag">日常随想</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%94%BB%E5%9B%BE/" rel="tag">画图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" rel="tag">科学上网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1/" rel="tag">统计</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">统计课程笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag">英语学习笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%8B%B1%E8%AF%AD%E6%96%B9%E6%B3%95/" rel="tag">英语方法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E5%8C%96/" rel="tag">进化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BF%9B%E5%8C%96%E6%A0%91/" rel="tag">进化树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%83%B3/" rel="tag">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Hexo%E6%8A%80%E5%B7%A7/" style="font-size: 10px;">Hexo技巧</a> <a href="/tags/R%E7%94%BB%E5%9B%BE/" style="font-size: 15px;">R画图</a> <a href="/tags/ggplot/" style="font-size: 20px;">ggplot</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/" style="font-size: 10px;">个人成长</a> <a href="/tags/%E5%91%A8%E8%AE%B0/" style="font-size: 15px;">周记</a> <a href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" style="font-size: 20px;">基因组数据处理</a> <a href="/tags/%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%AF%94%E8%BE%83/" style="font-size: 10px;">多因素比较</a> <a href="/tags/%E5%A5%BD%E6%96%87%E7%AB%A0/" style="font-size: 10px;">好文章</a> <a href="/tags/%E5%B0%8F%E7%B1%B3%E5%88%B7%E6%9C%BA/" style="font-size: 10px;">小米刷机</a> <a href="/tags/%E6%83%B3%E6%B3%95/" style="font-size: 10px;">想法</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%B7%A5/" style="font-size: 10px;">数据加工</a> <a href="/tags/%E6%97%A5%E5%B8%B8%E9%9A%8F%E6%83%B3/" style="font-size: 10px;">日常随想</a> <a href="/tags/%E7%94%BB%E5%9B%BE/" style="font-size: 15px;">画图</a> <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 10px;">科学上网</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">笔记</a> <a href="/tags/%E7%BB%9F%E8%AE%A1/" style="font-size: 15px;">统计</a> <a href="/tags/%E7%BB%9F%E8%AE%A1%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">统计课程笔记</a> <a href="/tags/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">英语学习笔记</a> <a href="/tags/%E8%8B%B1%E8%AF%AD%E6%96%B9%E6%B3%95/" style="font-size: 10px;">英语方法</a> <a href="/tags/%E8%BF%9B%E5%8C%96/" style="font-size: 10px;">进化</a> <a href="/tags/%E8%BF%9B%E5%8C%96%E6%A0%91/" style="font-size: 10px;">进化树</a> <a href="/tags/%E9%9A%8F%E6%83%B3/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/02/11/first-post-20230211/">first post 20230211</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/11/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/10/hexo%E9%85%8D%E7%BD%AE/">hexo配置</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/03/%E4%BD%BF%E7%94%A8ggtree%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E5%8F%91%E7%94%9F%E6%A0%91/">使用ggtree构建系统发生树</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/02/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%89%A9%E7%A7%8D%E6%A0%91/">如何构建物种树</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Wang Depin<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
