@@ -64,148 +64,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ggplot画barplot图-自定义x轴的顺序" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/" class="article-date">
-  <time datetime="2019-11-09T12:06:38.000Z" itemprop="datePublished">2019-11-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/">ggplot画barplot图-自定义x轴的顺序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我画了一个barplot，但是bar的长度不是按照从小到大或者从大到小排序的。我现在想要bar排序展示。代码如下：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">data<span class="punctuation">(</span>tips<span class="punctuation">,</span> package <span class="operator">=</span> <span class="string">&quot;reshape2&quot;</span><span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>tidyverse<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>scales<span class="punctuation">)</span>  <span class="comment"># for percentage scales</span></span><br><span class="line"></span><br><span class="line">tips <span class="operator">%&gt;%</span> </span><br><span class="line">  count<span class="punctuation">(</span>day<span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  mutate<span class="punctuation">(</span>perc <span class="operator">=</span> n <span class="operator">/</span> nrow<span class="punctuation">(</span>tips<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">-&gt;</span> tips2</span><br><span class="line"></span><br><span class="line">ggplot<span class="punctuation">(</span>tips2<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> day<span class="punctuation">,</span> y <span class="operator">=</span> perc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_bar<span class="punctuation">(</span>stat <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">bar按照顺序排序，方法<span class="number">1</span>：</span><br><span class="line">tips2<span class="operator">$</span>day <span class="operator">&lt;-</span> factor<span class="punctuation">(</span>tips2<span class="operator">$</span>day<span class="punctuation">,</span>levels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Fri&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sat&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sun&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Thur&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">方法<span class="number">2</span>：</span><br><span class="line">ggplot<span class="punctuation">(</span>tips2<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> reorder<span class="punctuation">(</span>day<span class="punctuation">,</span> <span class="operator">-</span>perc<span class="punctuation">)</span><span class="punctuation">,</span> y <span class="operator">=</span> perc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_bar<span class="punctuation">(</span>stat <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p>参考资料如下：</p>
-<p> <a target="_blank" rel="noopener" href="https://sebastiansauer.github.io/ordering-bars/">https://sebastiansauer.github.io/ordering-bars/</a> </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/" data-id="cle00atyw000gg60z8erj5pte" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ggplot-分面画图时，改变facet-labels" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/" class="article-date">
-  <time datetime="2019-11-08T08:54:12.000Z" itemprop="datePublished">2019-11-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/">ggplot 分面画图时，改变facet labels</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我使用facet_wrap进行分面画图，我想要自定义每个图的位置。如下图</p>
-<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data图片1.png" style="zoom:50%;" />
-
-<p>比如，我想把Belgica_antarcitica 换到 Drosophila_simulans。代码如下：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Using the Iris data</span></span><br><span class="line"><span class="operator">&gt;</span> i <span class="operator">&lt;-</span> iris</span><br><span class="line"><span class="operator">&gt;</span> levels<span class="punctuation">(</span>i<span class="operator">$</span>Species<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="string">&quot;setosa&quot;</span>     <span class="string">&quot;versicolor&quot;</span> <span class="string">&quot;virginica&quot;</span> </span><br><span class="line"><span class="operator">&gt;</span> levels<span class="punctuation">(</span>i<span class="operator">$</span>Species<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;S&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Ve&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Vi&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> ggplot<span class="punctuation">(</span>i<span class="punctuation">,</span> aes<span class="punctuation">(</span>Petal.Length<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> stat_bin<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span> facet_grid<span class="punctuation">(</span>Species <span class="operator">~</span> .<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-
-<p>设置levels，改变位置。</p>
-<p>参考资料：</p>
-<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3472980/how-to-change-facet-labels">https://stackoverflow.com/questions/3472980/how-to-change-facet-labels</a> </p>
-<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15116081/controlling-order-of-facet-grid-facet-wrap-in-ggplot2">https://stackoverflow.com/questions/15116081/controlling-order-of-facet-grid-facet-wrap-in-ggplot2</a> </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/" data-id="cle00atyr0001g60z8h5b3xlw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-ggplot-画图修改x，y轴label-和text" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/" class="article-date">
-  <time datetime="2019-11-08T08:07:05.000Z" itemprop="datePublished">2019-11-08</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/R-%E8%AF%AD%E8%A8%80/">R 语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/">ggplot 画图修改x，y轴label 和text</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我想要改变x，y轴刻度大小，方向。代码如下：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>mtcars<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> factor<span class="punctuation">(</span>cyl<span class="punctuation">)</span><span class="punctuation">,</span> y <span class="operator">=</span> mpg<span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  geom_point<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span>axis.text.x <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">20</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">        axis.text.y <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>  </span><br><span class="line">        axis.title.x <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">        axis.title.y <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/" data-id="cle00atyv000ag60z5eja753j" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-ggplot画图时，如何自定义x轴刻度的名称" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/08/ggplot%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E5%88%BB%E5%BA%A6%E7%9A%84%E5%90%8D%E7%A7%B0/" class="article-date">
@@ -554,6 +412,145 @@
 
 
   
+    <article id="post-在-hexo-new-之后立即打开自定义markdown编辑软件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/12/%E5%9C%A8-hexo-new-%E4%B9%8B%E5%90%8E%E7%AB%8B%E5%8D%B3%E6%89%93%E5%BC%80%E8%87%AA%E5%AE%9A%E4%B9%89markdown%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/" class="article-date">
+  <time datetime="2019-10-12T08:13:05.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8A%80%E8%83%BD/">计算机技能</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/%E5%9C%A8-hexo-new-%E4%B9%8B%E5%90%8E%E7%AB%8B%E5%8D%B3%E6%89%93%E5%BC%80%E8%87%AA%E5%AE%9A%E4%B9%89markdown%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/">在 hexo new 之后立即打开自定义markdown编辑软件进行编辑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们想要用hexo写一篇文章时，用hexo new “post name” 创建一个md文件后，通常你需要依次打开 <code>hexo-home/source/_post</code> 目录，然后在成堆的 Markdown 文件中找到刚才创建的文档，再打开它，进行编辑，有点麻烦。虽然在Visualcode里可以直接输命令，然后Vcode会直接打开文件，但是Vcode编辑markdown不方便。在 Hexo 的 GitHub 项目里，有人提出了类似的需求：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues/1007">https://github.com/hexojs/hexo/issues/1007</a></p>
+<p>那么我们可以简化这一步骤：</p>
+<p>在你的hexo目录下新建一个文件夹名叫<code>scripts</code>（你的hexo目录就是你执行hexo命令的目录）,可以看看我的hexo目录是MY_BLOG：</p>
+<p><img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data20191012162904.png"></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir scripts</span><br><span class="line"><span class="built_in">cd</span> scripts</span><br></pre></td></tr></table></figure>
+
+<p>然后再这个scripts目录下创建一个openNewFile.js文件，编辑文件内容为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Hexo 3</span></span><br><span class="line"><span class="keyword">var</span> spawn = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).<span class="property">spawn</span>;</span><br><span class="line">hexo.<span class="title function_">on</span>(<span class="string">&#x27;new&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">    <span class="title function_">spawn</span>(<span class="string">&#x27;D:/Program Files/Typora/bin/Typora.exe &#x27;</span>, [data.<span class="property">path</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如果你是Mac平台Hexo用户，则将下列内容写入你的脚本： </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> exec = <span class="built_in">require</span>(<span class="string">&#x27;child_process&#x27;</span>).<span class="property">exec</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Hexo 2.x 用户复制这段</span></span><br><span class="line">hexo.<span class="title function_">on</span>(<span class="string">&#x27;new&#x27;</span>, <span class="keyword">function</span>(<span class="params">path</span>)&#123;</span><br><span class="line">    <span class="title function_">exec</span>(<span class="string">&#x27;open -a &quot;markdown编辑器绝对路径.app&quot; &#x27;</span> + path);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Hexo 3 用户复制这段</span></span><br><span class="line">hexo.<span class="title function_">on</span>(<span class="string">&#x27;new&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>)&#123;</span><br><span class="line">    <span class="title function_">exec</span>(<span class="string">&#x27;open -a &quot;markdown编辑器绝对路径.app&quot; &#x27;</span> + data.<span class="property">path</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>保存并退出脚本之后，测试，在命令行中键入：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;post name&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tianxintiandisheng/article/details/102381391">https://blog.csdn.net/tianxintiandisheng/article/details/102381391</a></p>
+<p><a target="_blank" rel="noopener" href="https://xiaoxx.cc/open-your-farvorite-editor-after-new-hexo-post/#more">https://xiaoxx.cc/open-your-farvorite-editor-after-new-hexo-post/#more</a></p>
+<p><a target="_blank" rel="noopener" href="https://notes.doublemine.me/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html">https://notes.doublemine.me/2015-06-29-Hexo%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E6%97%B6%E8%87%AA%E5%8A%A8%E6%89%93%E5%BC%80%E7%BC%96%E8%BE%91%E5%99%A8.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/10/12/%E5%9C%A8-hexo-new-%E4%B9%8B%E5%90%8E%E7%AB%8B%E5%8D%B3%E6%89%93%E5%BC%80%E8%87%AA%E5%AE%9A%E4%B9%89markdown%E7%BC%96%E8%BE%91%E8%BD%AF%E4%BB%B6/" data-id="cle00atz4001xg60zfrxhahrr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo%E6%8A%80%E5%B7%A7/" rel="tag">Hexo技巧</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习-斯坦福课程《statistics-and-probability》笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/12/%E5%AD%A6%E4%B9%A0-%E6%96%AF%E5%9D%A6%E7%A6%8F%E8%AF%BE%E7%A8%8B%E3%80%8Astatistics-and-probability%E3%80%8B%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2019-10-12T08:10:36.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/%E5%AD%A6%E4%B9%A0-%E6%96%AF%E5%9D%A6%E7%A6%8F%E8%AF%BE%E7%A8%8B%E3%80%8Astatistics-and-probability%E3%80%8B%E7%AC%94%E8%AE%B0/">学习 斯坦福课程《statistics and probability》笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/10/12/%E5%AD%A6%E4%B9%A0-%E6%96%AF%E5%9D%A6%E7%A6%8F%E8%AF%BE%E7%A8%8B%E3%80%8Astatistics-and-probability%E3%80%8B%E7%AC%94%E8%AE%B0/" data-id="cle00atz70033g60z988ob6zq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag">统计课程笔记</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习-《概率论与数理统计》-陈希儒版-笔记-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/10/12/%E5%AD%A6%E4%B9%A0-%E3%80%8A%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E3%80%8B-%E9%99%88%E5%B8%8C%E5%84%92%E7%89%88-%E7%AC%94%E8%AE%B0-1/" class="article-date">
+  <time datetime="2019-10-12T08:07:30.000Z" itemprop="datePublished">2019-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/12/%E5%AD%A6%E4%B9%A0-%E3%80%8A%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E3%80%8B-%E9%99%88%E5%B8%8C%E5%84%92%E7%89%88-%E7%AC%94%E8%AE%B0-1/">学习 《概率论与数理统计》-陈希儒版 笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/10/12/%E5%AD%A6%E4%B9%A0-%E3%80%8A%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1%E3%80%8B-%E9%99%88%E5%B8%8C%E5%84%92%E7%89%88-%E7%AC%94%E8%AE%B0-1/" data-id="cle00atz70030g60z89tu6jo2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -598,7 +595,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
     </div>
   </div>
 
@@ -611,23 +608,23 @@
       <ul>
         
           <li>
-            <a href="/2023/02/11/first-post-20230211/">first post 20230211</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/11/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/10/hexo%E9%85%8D%E7%BD%AE/">hexo配置</a>
-          </li>
-        
-          <li>
             <a href="/2020/01/03/%E4%BD%BF%E7%94%A8ggtree%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E5%8F%91%E7%94%9F%E6%A0%91/">使用ggtree构建系统发生树</a>
           </li>
         
           <li>
             <a href="/2020/01/02/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%89%A9%E7%A7%8D%E6%A0%91/">如何构建物种树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/25/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E8%AE%A1%E7%AE%97dN-dS/">基因组数据处理-计算dN/dS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/25/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E6%A0%B9%E6%8D%AEgtf%E6%8F%90%E5%8F%96CDS%E5%BA%8F%E5%88%97/">基因组数据处理- 预测CDS序列</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/25/ggplot-%E7%94%BB%E5%AF%86%E5%BA%A6%E5%9B%BE%E6%97%B6%E6%94%B9%E5%8F%98legend%E7%9A%84%E5%BD%A2%E7%8A%B6/">ggplot-画密度图时改变legend的形状</a>
           </li>
         
       </ul>

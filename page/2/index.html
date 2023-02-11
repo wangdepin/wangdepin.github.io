@@ -64,151 +64,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-基因组数据处理-转变bed文件成只含有intron的gtf" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/15/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E8%BD%AC%E5%8F%98bed%E6%96%87%E4%BB%B6%E6%88%90%E5%8F%AA%E5%90%AB%E6%9C%89intron%E7%9A%84gtf/" class="article-date">
-  <time datetime="2019-11-15T10:29:53.000Z" itemprop="datePublished">2019-11-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/15/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E8%BD%AC%E5%8F%98bed%E6%96%87%E4%BB%B6%E6%88%90%E5%8F%AA%E5%90%AB%E6%9C%89intron%E7%9A%84gtf/">基因组数据处理-抽取intron序列从gtf文件和基因组文件</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我想从gtf文件中抽取每个基因的intron序列。</p>
-<p>if you have genes gtf file, convert it to bed format by gtf2bed utility from bedtools then make a genes file in bed (chrom gene_start gene_end from gtf)</p>
-<p>substractBed -a genome.bed -b converted_gtf_to_bed.bed &gt; introns.bed</p>
-<p>bedtools getfasta [OPTIONS] -fi &lt;genome.fasta&gt; -bed &lt;introns.bed&gt; -fo &lt;introns.fasta&gt;</p>
-<p>参考资料：<br><a target="_blank" rel="noopener" href="https://github.com/irusri/Extract-intron-from-gff3">https://github.com/irusri/Extract-intron-from-gff3</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/15/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E8%BD%AC%E5%8F%98bed%E6%96%87%E4%BB%B6%E6%88%90%E5%8F%AA%E5%90%AB%E6%9C%89intron%E7%9A%84gtf/" data-id="cle00atz6002qg60z2atn9n0w" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/" rel="tag">基因组数据处理</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-r语言数据处理-图示化相关性矩阵" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/15/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%9B%BE%E7%A4%BA%E5%8C%96%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9F%A9%E9%98%B5/" class="article-date">
-  <time datetime="2019-11-15T03:00:44.000Z" itemprop="datePublished">2019-11-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/15/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%9B%BE%E7%A4%BA%E5%8C%96%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9F%A9%E9%98%B5/">r语言数据处理-图示化相关性矩阵</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 我想要在一张图里面展示，full 和 partial 相关性矩阵。可以利用ggm包中的correlations函数。</p>
-<p>Use the the <code>correlations</code> function from the <code>ggm</code> package to create a correlation matrix with both full and partial correlation coefficients for the <code>auto_subset</code> dataframe. </p>
-<p>参考资料：</p>
-<ol>
-<li> <a target="_blank" rel="noopener" href="https://www.r-exercises.com/2017/04/08/correlation-and-correlogram-exercises/?print=print">https://www.r-exercises.com/2017/04/08/correlation-and-correlogram-exercises/?print=print</a> </li>
-<li> <a target="_blank" rel="noopener" href="https://www.r-exercises.com/2017/04/08/correlation-and-correlogram-exercises-solutions/">https://www.r-exercises.com/2017/04/08/correlation-and-correlogram-exercises-solutions/</a> </li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/15/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%9B%BE%E7%A4%BA%E5%8C%96%E7%9B%B8%E5%85%B3%E6%80%A7%E7%9F%A9%E9%98%B5/" data-id="cle00atz00013g60z6u25cuma" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%A4%9A%E5%9B%A0%E7%B4%A0%E6%AF%94%E8%BE%83/" rel="tag">多因素比较</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BB%9F%E8%AE%A1/" rel="tag">统计</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-r语言数据处理-合并多个txt文件，形成一个dataframe" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/11/14/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAtxt%E6%96%87%E4%BB%B6%EF%BC%8C%E5%BD%A2%E6%88%90%E4%B8%80%E4%B8%AAdataframe/" class="article-date">
-  <time datetime="2019-11-14T11:42:50.000Z" itemprop="datePublished">2019-11-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/14/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAtxt%E6%96%87%E4%BB%B6%EF%BC%8C%E5%BD%A2%E6%88%90%E4%B8%80%E4%B8%AAdataframe/">r语言数据处理-合并多个txt文件，形成一个dataframe</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在一个目录下，我有多个txt文件，根据每个文件第一列，合并所有文件。</p>
-<p>参考资料：</p>
-<ol>
-<li> <a target="_blank" rel="noopener" href="https://psychwire.wordpress.com/2011/06/03/merge-all-files-in-a-directory-using-r-into-a-single-dataframe/">https://psychwire.wordpress.com/2011/06/03/merge-all-files-in-a-directory-using-r-into-a-single-dataframe/</a> </li>
-<li> <a target="_blank" rel="noopener" href="https://www.r-bloggers.com/merging-multiple-data-files-into-one-data-frame/">https://www.r-bloggers.com/merging-multiple-data-files-into-one-data-frame/</a> </li>
-<li> <a target="_blank" rel="noopener" href="https://psychwire.wordpress.com/2011/06/03/merge-all-files-in-a-directory-using-r-into-a-single-dataframe/">https://psychwire.wordpress.com/2011/06/03/merge-all-files-in-a-directory-using-r-into-a-single-dataframe/</a> </li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2019/11/14/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AAtxt%E6%96%87%E4%BB%B6%EF%BC%8C%E5%BD%A2%E6%88%90%E4%B8%80%E4%B8%AAdataframe/" data-id="cle00atyz000yg60zcrvcawut" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%B7%A5/" rel="tag">数据加工</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-r语言数据处理-多重比较" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/11/14/r%E8%AF%AD%E8%A8%80%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BE%83/" class="article-date">
@@ -555,6 +410,148 @@
 
 
   
+    <article id="post-ggplot画barplot图-自定义x轴的顺序" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/" class="article-date">
+  <time datetime="2019-11-09T12:06:38.000Z" itemprop="datePublished">2019-11-09</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/">ggplot画barplot图-自定义x轴的顺序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我画了一个barplot，但是bar的长度不是按照从小到大或者从大到小排序的。我现在想要bar排序展示。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">data<span class="punctuation">(</span>tips<span class="punctuation">,</span> package <span class="operator">=</span> <span class="string">&quot;reshape2&quot;</span><span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>tidyverse<span class="punctuation">)</span></span><br><span class="line">library<span class="punctuation">(</span>scales<span class="punctuation">)</span>  <span class="comment"># for percentage scales</span></span><br><span class="line"></span><br><span class="line">tips <span class="operator">%&gt;%</span> </span><br><span class="line">  count<span class="punctuation">(</span>day<span class="punctuation">)</span> <span class="operator">%&gt;%</span> </span><br><span class="line">  mutate<span class="punctuation">(</span>perc <span class="operator">=</span> n <span class="operator">/</span> nrow<span class="punctuation">(</span>tips<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">-&gt;</span> tips2</span><br><span class="line"></span><br><span class="line">ggplot<span class="punctuation">(</span>tips2<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> day<span class="punctuation">,</span> y <span class="operator">=</span> perc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_bar<span class="punctuation">(</span>stat <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">)</span></span><br><span class="line"></span><br><span class="line">bar按照顺序排序，方法<span class="number">1</span>：</span><br><span class="line">tips2<span class="operator">$</span>day <span class="operator">&lt;-</span> factor<span class="punctuation">(</span>tips2<span class="operator">$</span>day<span class="punctuation">,</span>levels <span class="operator">=</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;Fri&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sat&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Sun&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Thur&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br><span class="line">方法<span class="number">2</span>：</span><br><span class="line">ggplot<span class="punctuation">(</span>tips2<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> reorder<span class="punctuation">(</span>day<span class="punctuation">,</span> <span class="operator">-</span>perc<span class="punctuation">)</span><span class="punctuation">,</span> y <span class="operator">=</span> perc<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> geom_bar<span class="punctuation">(</span>stat <span class="operator">=</span> <span class="string">&quot;identity&quot;</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>参考资料如下：</p>
+<p> <a target="_blank" rel="noopener" href="https://sebastiansauer.github.io/ordering-bars/">https://sebastiansauer.github.io/ordering-bars/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/09/ggplot%E7%94%BBbarplot%E5%9B%BE-%E8%87%AA%E5%AE%9A%E4%B9%89x%E8%BD%B4%E7%9A%84%E9%A1%BA%E5%BA%8F/" data-id="cle00atyw000gg60z8erj5pte" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ggplot-分面画图时，改变facet-labels" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/" class="article-date">
+  <time datetime="2019-11-08T08:54:12.000Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R%E8%AF%AD%E8%A8%80/">R语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/">ggplot 分面画图时，改变facet labels</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我使用facet_wrap进行分面画图，我想要自定义每个图的位置。如下图</p>
+<img src="https://raw.githubusercontent.com/wangdepin/cloudimg/master/data图片1.png" style="zoom:50%;" />
+
+<p>比如，我想把Belgica_antarcitica 换到 Drosophila_simulans。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Using the Iris data</span></span><br><span class="line"><span class="operator">&gt;</span> i <span class="operator">&lt;-</span> iris</span><br><span class="line"><span class="operator">&gt;</span> levels<span class="punctuation">(</span>i<span class="operator">$</span>Species<span class="punctuation">)</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="string">&quot;setosa&quot;</span>     <span class="string">&quot;versicolor&quot;</span> <span class="string">&quot;virginica&quot;</span> </span><br><span class="line"><span class="operator">&gt;</span> levels<span class="punctuation">(</span>i<span class="operator">$</span>Species<span class="punctuation">)</span> <span class="operator">&lt;-</span> <span class="built_in">c</span><span class="punctuation">(</span><span class="string">&quot;S&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Ve&quot;</span><span class="punctuation">,</span> <span class="string">&quot;Vi&quot;</span><span class="punctuation">)</span></span><br><span class="line"><span class="operator">&gt;</span> ggplot<span class="punctuation">(</span>i<span class="punctuation">,</span> aes<span class="punctuation">(</span>Petal.Length<span class="punctuation">)</span><span class="punctuation">)</span> <span class="operator">+</span> stat_bin<span class="punctuation">(</span><span class="punctuation">)</span> <span class="operator">+</span> facet_grid<span class="punctuation">(</span>Species <span class="operator">~</span> .<span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+
+<p>设置levels，改变位置。</p>
+<p>参考资料：</p>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/3472980/how-to-change-facet-labels">https://stackoverflow.com/questions/3472980/how-to-change-facet-labels</a> </p>
+<p> <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/15116081/controlling-order-of-facet-grid-facet-wrap-in-ggplot2">https://stackoverflow.com/questions/15116081/controlling-order-of-facet-grid-facet-wrap-in-ggplot2</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/08/ggplot-%E5%88%86%E9%9D%A2%E7%94%BB%E5%9B%BE%E6%97%B6%EF%BC%8C%E6%94%B9%E5%8F%98facet-labels/" data-id="cle00atyr0001g60z8h5b3xlw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-ggplot-画图修改x，y轴label-和text" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/" class="article-date">
+  <time datetime="2019-11-08T08:07:05.000Z" itemprop="datePublished">2019-11-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/R-%E8%AF%AD%E8%A8%80/">R 语言</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/">ggplot 画图修改x，y轴label 和text</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我想要改变x，y轴刻度大小，方向。代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ggplot<span class="punctuation">(</span>mtcars<span class="punctuation">,</span> aes<span class="punctuation">(</span>x <span class="operator">=</span> factor<span class="punctuation">(</span>cyl<span class="punctuation">)</span><span class="punctuation">,</span> y <span class="operator">=</span> mpg<span class="punctuation">)</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  geom_point<span class="punctuation">(</span><span class="punctuation">)</span><span class="operator">+</span></span><br><span class="line">  theme<span class="punctuation">(</span>axis.text.x <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">20</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">        axis.text.y <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">1</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span>  </span><br><span class="line">        axis.title.x <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">0</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">,</span></span><br><span class="line">        axis.title.y <span class="operator">=</span> element_text<span class="punctuation">(</span>color <span class="operator">=</span> <span class="string">&quot;grey20&quot;</span><span class="punctuation">,</span> size <span class="operator">=</span> <span class="number">12</span><span class="punctuation">,</span> angle <span class="operator">=</span> <span class="number">90</span><span class="punctuation">,</span> hjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> vjust <span class="operator">=</span> <span class="number">.5</span><span class="punctuation">,</span> face <span class="operator">=</span> <span class="string">&quot;plain&quot;</span><span class="punctuation">)</span><span class="punctuation">)</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/11/08/ggplot-%E7%94%BB%E5%9B%BE%E4%BF%AE%E6%94%B9x%EF%BC%8Cy%E8%BD%B4label-%E5%92%8Ctext/" data-id="cle00atyv000ag60z5eja753j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ggplot/" rel="tag">ggplot</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
 
 
   <nav id="page-nav">
@@ -599,7 +596,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li></ul>
     </div>
   </div>
 
@@ -612,23 +609,23 @@
       <ul>
         
           <li>
-            <a href="/2023/02/11/first-post-20230211/">first post 20230211</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/11/hello-world/">Hello World</a>
-          </li>
-        
-          <li>
-            <a href="/2023/02/10/hexo%E9%85%8D%E7%BD%AE/">hexo配置</a>
-          </li>
-        
-          <li>
             <a href="/2020/01/03/%E4%BD%BF%E7%94%A8ggtree%E6%9E%84%E5%BB%BA%E7%B3%BB%E7%BB%9F%E5%8F%91%E7%94%9F%E6%A0%91/">使用ggtree构建系统发生树</a>
           </li>
         
           <li>
             <a href="/2020/01/02/%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E7%89%A9%E7%A7%8D%E6%A0%91/">如何构建物种树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/25/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E8%AE%A1%E7%AE%97dN-dS/">基因组数据处理-计算dN/dS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/25/%E5%9F%BA%E5%9B%A0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86-%E6%A0%B9%E6%8D%AEgtf%E6%8F%90%E5%8F%96CDS%E5%BA%8F%E5%88%97/">基因组数据处理- 预测CDS序列</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/25/ggplot-%E7%94%BB%E5%AF%86%E5%BA%A6%E5%9B%BE%E6%97%B6%E6%94%B9%E5%8F%98legend%E7%9A%84%E5%BD%A2%E7%8A%B6/">ggplot-画密度图时改变legend的形状</a>
           </li>
         
       </ul>
