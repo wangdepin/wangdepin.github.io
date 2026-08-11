@@ -281,20 +281,21 @@ a { color: inherit; }
 
 .poster-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
 }
 
 .poster-grid figure {
-  margin: 0;
+  width: min(100%, 760px);
+  margin: 0 auto;
   background: var(--paper);
   box-shadow: var(--shadow);
 }
 
 .poster-grid img {
   width: 100%;
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
 
 .poster-grid figcaption {
@@ -552,10 +553,7 @@ a { color: inherit; }
   .training-phase,
   .sources { margin-top: 68px; }
 
-  .poster-grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
+  .poster-grid { gap: 22px; }
 
   .poster-grid figure {
     max-width: 520px;
