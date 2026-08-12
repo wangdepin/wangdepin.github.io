@@ -568,6 +568,24 @@ a { color: inherit; }
 
 .exercise li { padding-left: 4px; }
 
+.exercise-clip {
+  width: 100%;
+  margin-top: auto;
+}
+
+.exercise-clip video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #111;
+}
+
+.exercise-clip .video-note {
+  min-height: 36px;
+  font-size: 13px;
+}
+
 .caution {
   margin: 0 0 22px;
   color: #8a4b20;
