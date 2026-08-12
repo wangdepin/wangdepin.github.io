@@ -243,12 +243,35 @@ a { color: inherit; }
 
 .article-body { min-width: 0; }
 
-.quick-plan h2 {
+.quick-plan h2,
+.extra-plan h2 {
   margin: 0;
   font-size: clamp(34px, 5vw, 52px);
   letter-spacing: -0.045em;
   line-height: 1.15;
 }
+
+.extra-plan {
+  margin-top: 70px;
+  scroll-margin-top: 20px;
+}
+
+.extra-plan__intro {
+  margin: 18px 0 30px;
+  color: var(--muted);
+}
+
+.choice-note {
+  display: grid;
+  gap: 6px;
+  margin-top: 22px;
+  padding: 18px 20px;
+  border-left: 5px solid var(--orange);
+  background: var(--warm-soft);
+  color: #74431f;
+}
+
+.choice-note strong { font-size: 18px; }
 
 .quick-plan__intro {
   margin: 18px 0 30px;
@@ -298,6 +321,12 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+.extra-card {
+  border-top: 3px solid var(--orange);
+}
+
+.extra-card .quick-card__number { background: var(--orange); }
+
 .quick-card h3 {
   margin: 13px 0 8px;
   font-size: 27px;
@@ -316,6 +345,18 @@ a { color: inherit; }
   color: var(--accent-dark);
   font-size: 21px;
 }
+
+.dose-lines {
+  display: grid;
+  gap: 4px;
+  margin: 18px 0 6px;
+  padding: 14px 16px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+}
+
+.dose-lines strong { font-size: 17px; }
+.dose-lines span { font-size: 14px; }
 
 .quick-card a {
   min-height: 44px;
@@ -567,24 +608,6 @@ a { color: inherit; }
 }
 
 .exercise li { padding-left: 4px; }
-
-.exercise-clip {
-  width: 100%;
-  margin-top: auto;
-}
-
-.exercise-clip video {
-  width: 100%;
-  height: auto;
-  display: block;
-  aspect-ratio: 16 / 9;
-  background: #111;
-}
-
-.exercise-clip .video-note {
-  min-height: 36px;
-  font-size: 13px;
-}
 
 .caution {
   margin: 0 0 22px;
