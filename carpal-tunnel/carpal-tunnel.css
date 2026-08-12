@@ -273,11 +273,14 @@ a { color: inherit; }
   scroll-margin-top: 20px;
 }
 
-.quick-card img {
+.quick-card img,
+.quick-card video {
+  display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  background: #111;
 }
 
 .quick-card > div { padding: 24px; }
@@ -321,6 +324,20 @@ a { color: inherit; }
   color: var(--accent-dark);
   font-weight: 700;
   text-underline-offset: 4px;
+}
+
+.video-note {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
+.clip-credit {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 13px;
 }
 
 .notice {
